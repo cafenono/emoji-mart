@@ -69,6 +69,8 @@ export default class NimblePicker extends React.PureComponent {
     if (props.data.compressed) {
       uncompress(props.data)
     }
+    this.width = props.width;
+    this.height = props.height;
 
     this.data = props.data
     this.i18n = deepMerge(I18N, props.i18n)
@@ -316,36 +318,40 @@ export default class NimblePicker extends React.PureComponent {
     // }
   }
 
-  handleScrollPaint(titleIndexes) {
+  handleScrollPaint(titleIndexes, size, perLine) {
     return ({ scrollTop }) => {
       let activeCategory = null
 
       if (this.SEARCH_CATEGORY.emojis) {
         activeCategory = this.SEARCH_CATEGORY
       } else {
-        const scrolledItem = Math.ceil(scrollTop / 36)
+        const scrolledItem = Math.ceil(scrollTop / size)
 
         Object.keys(titleIndexes)
           .sort((a, b) => titleIndexes[a].row - titleIndexes[b].row)
           .some((key, index) => {
             const category = this.categories[index + 1]
 
+            // scrollItem + 1 은 이모지 소제목 바로위 row의 아이템에 스크롤이 왔을때 다음 소제목을 선택해준다.
             if (
               titleIndexes[category.id] &&
-              titleIndexes[category.id].row < scrolledItem + 2
+              titleIndexes[category.id].row < scrolledItem + 1
             ) {
               activeCategory = category
             }
+
+            if (!activeCategory && scrolledItem === 0 && index === 0) {
+              activeCategory = this.categories[1];
+            }
           })
       }
-
       if (activeCategory) {
-        let { anchors } = this,
-          { name: categoryName } = activeCategory
+          let { anchors } = this,
+            { name: categoryName } = activeCategory
 
-        if (anchors.state.selected !== categoryName) {
-          anchors.setState({ selected: categoryName })
-        }
+          if (anchors.state.selected !== categoryName) {
+            anchors.setState({ selected: categoryName })
+          }
       }
 
       this.activeCategory = activeCategory
@@ -366,8 +372,9 @@ export default class NimblePicker extends React.PureComponent {
   handleAnchorClick(category, i, itemPosition) {
     const scrollToComponent = () => {
       gridRef.current.scrollToItem({
-        columnIndex: itemPosition.col,
-        rowIndex: itemPosition.row ? itemPosition.row + 6 : 0,
+          align: 'start',
+          columnIndex: itemPosition.col,
+          rowIndex: itemPosition.row ? itemPosition.row : 0
       })
     }
 
@@ -561,7 +568,7 @@ export default class NimblePicker extends React.PureComponent {
 
     return (
       <section
-        style={{ width: width, ...style }}
+        style={{ ...style, width: '100%' }}
         className={`emoji-mart emoji-mart-${theme}`}
         aria-label={title}
         onKeyDown={this.handleKeyDown}
@@ -593,14 +600,15 @@ export default class NimblePicker extends React.PureComponent {
 
         <div className="emoji-mart-scroll">
           <Grid
+            className="emoji-mart-scroll-inner"
             ref={gridRef}
             columnCount={perLine}
             columnWidth={emojiSize + 12}
             rowHeight={emojiSize + 12}
-            height={264}
-            width={perLine * 36 + 10}
+            height={this.height}
+            width={width - 12}
             rowCount={rowCount}
-            onScroll={this.handleScrollPaint(titleIndexes)}
+            onScroll={this.handleScrollPaint(titleIndexes, emojiSize + 12, perLine)}
           >
             {renderEmoji({
               activeCategory: this.activeCategory,

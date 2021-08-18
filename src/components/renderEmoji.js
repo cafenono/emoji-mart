@@ -33,13 +33,13 @@ export default ({
         <div
           style={{
             ...style,
-            width: '100%',
+            width: '100%'
           }}
           data-name={label}
           className="emoji-mart-category-label"
         >
           <span
-            style={labelSpanStyles}
+            style={{...labelSpanStyles, top: '15px'}}
             aria-hidden={true /* already labeled by the section aria-label */}
           >
             {label}
