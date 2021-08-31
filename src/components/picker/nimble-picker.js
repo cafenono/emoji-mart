@@ -442,7 +442,7 @@ export default class NimblePicker extends React.PureComponent {
   }
 
   setPreviewRef(c) {
-    this.preview = c
+    this.preview = cx
   }
 
   render() {
@@ -473,7 +473,7 @@ export default class NimblePicker extends React.PureComponent {
       notFoundEmoji,
     } = this.props
 
-    var width = perLine * (emojiSize + 12) + 12 + 2 + measureScrollbar()
+    var width = perLine * (emojiSize + 18) + 40 + 2 + measureScrollbar()
     var theme = this.getPreferredTheme()
     var skin =
       this.props.skin ||
@@ -573,6 +573,17 @@ export default class NimblePicker extends React.PureComponent {
         aria-label={title}
         onKeyDown={this.handleKeyDown}
       >
+        <Search
+          ref={this.setSearchRef}
+          onSearch={this.handleSearch}
+          data={this.data}
+          i18n={this.i18n}
+          emojisToShowFilter={emojisToShowFilter}
+          include={include}
+          exclude={exclude}
+          custom={this.CUSTOM}
+          autoFocus={autoFocus}
+        />
         <div className="emoji-mart-bar">
           <Anchors
             ref={this.setAnchorsRef}
@@ -586,29 +597,17 @@ export default class NimblePicker extends React.PureComponent {
           />
         </div>
 
-        <Search
-          ref={this.setSearchRef}
-          onSearch={this.handleSearch}
-          data={this.data}
-          i18n={this.i18n}
-          emojisToShowFilter={emojisToShowFilter}
-          include={include}
-          exclude={exclude}
-          custom={this.CUSTOM}
-          autoFocus={autoFocus}
-        />
-
         <div className="emoji-mart-scroll">
           <Grid
             className="emoji-mart-scroll-inner"
             ref={gridRef}
             columnCount={perLine}
-            columnWidth={emojiSize + 12}
-            rowHeight={emojiSize + 12}
+            columnWidth={emojiSize + 18}
+            rowHeight={emojiSize + 18}
             height={this.height}
-            width={width - 12}
+            width={width - 40}
             rowCount={rowCount}
-            onScroll={this.handleScrollPaint(titleIndexes, emojiSize + 12, perLine)}
+            onScroll={this.handleScrollPaint(titleIndexes, emojiSize + 18, perLine)}
           >
             {renderEmoji({
               activeCategory: this.activeCategory,

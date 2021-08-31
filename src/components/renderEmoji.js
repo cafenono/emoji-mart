@@ -39,7 +39,7 @@ export default ({
           className="emoji-mart-category-label"
         >
           <span
-            style={{...labelSpanStyles, top: '15px'}}
+            style={{...labelSpanStyles, position: 'absolute', top: '15px'}}
             aria-hidden={true /* already labeled by the section aria-label */}
           >
             {label}
