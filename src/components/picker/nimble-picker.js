@@ -335,7 +335,7 @@ export default class NimblePicker extends React.PureComponent {
             // scrollItem + 1 은 이모지 소제목 바로위 row의 아이템에 스크롤이 왔을때 다음 소제목을 선택해준다.
             if (
               titleIndexes[category.id] &&
-              titleIndexes[category.id].row < scrolledItem + 1
+              titleIndexes[category.id].row <= scrolledItem
             ) {
               activeCategory = category
             }
@@ -448,6 +448,8 @@ export default class NimblePicker extends React.PureComponent {
   render() {
     var {
       perLine,
+      emojiWidth,
+      emojiHeight,
       emojiSize,
       set,
       sheetSize,
@@ -473,7 +475,7 @@ export default class NimblePicker extends React.PureComponent {
       notFoundEmoji,
     } = this.props
 
-    var width = perLine * (emojiSize + 18) + 40 + 2 + measureScrollbar()
+    var width = perLine * (emojiWidth) + measureScrollbar()
     var theme = this.getPreferredTheme()
     var skin =
       this.props.skin ||
@@ -509,7 +511,7 @@ export default class NimblePicker extends React.PureComponent {
         return null
       }
 
-      const recent =
+      recent =
         category.id === this.RECENT_CATEGORY.id ? recent : undefined
       const custom =
         category.id === this.RECENT_CATEGORY.id ? this.CUSTOM : undefined
@@ -548,6 +550,7 @@ export default class NimblePicker extends React.PureComponent {
         col: allEmojis.length % perLine,
       }
       const missing = perLine - (allEmojis.length % perLine)
+
       const makeGap = (count) =>
         Array.from({
           length: count,
@@ -555,7 +558,7 @@ export default class NimblePicker extends React.PureComponent {
 
       allEmojis = [
         ...allEmojis,
-        ...makeGap(allEmojis.length === 0 ? 0 : missing),
+        ...makeGap(missing === perLine || allEmojis.length === 0 ? 0 : missing),
         catObj,
         ...makeGap(perLine - 1),
         ...emojis,
@@ -602,12 +605,12 @@ export default class NimblePicker extends React.PureComponent {
             className="emoji-mart-scroll-inner"
             ref={gridRef}
             columnCount={perLine}
-            columnWidth={emojiSize + 18}
-            rowHeight={emojiSize + 18}
+            columnWidth={emojiWidth}
+            rowHeight={emojiHeight}
             height={this.height}
-            width={width - 40}
+            width={width}
             rowCount={rowCount}
-            onScroll={this.handleScrollPaint(titleIndexes, emojiSize + 18, perLine)}
+            onScroll={this.handleScrollPaint(titleIndexes, emojiHeight, perLine)}
           >
             {renderEmoji({
               activeCategory: this.activeCategory,

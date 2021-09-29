@@ -52,7 +52,11 @@ export default ({
       renderLabel()
     ) : (
       <li
-        style={style}
+        style={{...style,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
         key={(emoji.short_names && emoji.short_names.join('_')) || emoji}
       >
         {NimbleEmoji({ emoji: emoji, data: data, ...emojiProps })}
