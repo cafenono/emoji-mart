@@ -25,6 +25,7 @@ let defaults = {}
 function init() {
   initialized = true
   frequently = store.get('frequently')
+  store.set('last', null);
 }
 
 function add(emoji) {
@@ -78,4 +79,4 @@ function get(perLine) {
   return sliced
 }
 
-export default { add, get }
+export default { add, get, init }
