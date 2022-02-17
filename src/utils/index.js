@@ -80,6 +80,7 @@ function getData(emoji, skin, set, data) {
       emoji = data.aliases[emoji]
       if (data.emojis.hasOwnProperty(emoji)) {
         emojiData = data.emojis[emoji]
+        emojiData.id = emoji
       } else {
         return null
       }
