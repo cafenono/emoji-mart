@@ -25,7 +25,7 @@ let defaults = {}
 function init() {
   initialized = true
   frequently = store.get('frequently')
-  store.set('last', null);
+  store.set('last', '+1');
 }
 
 function add(emoji) {
