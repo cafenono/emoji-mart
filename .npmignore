@@ -1,9 +1,7 @@
-dist/report.html
-scripts/
 .*
+*.config.js
+*.lock
 
 src/
 docs/
-example/
-karma.conf.js
-yarn.lock
+scripts/

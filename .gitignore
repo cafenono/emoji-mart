@@ -1,10 +1,4 @@
-.DS_Store
-node_modules/
-dist/
-dist-es/
-dist-modern/
-stats.json
-report.html
-package-lock.json
-.idea
-
+.parcel-cache
+coverage
+node_modules
+dist
