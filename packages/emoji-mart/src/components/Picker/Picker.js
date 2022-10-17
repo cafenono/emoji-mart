@@ -782,38 +782,35 @@ export default class Picker extends Component {
       this.props.skinTonePosition == 'search'
 
     return (
-      <div>
-        <div class="spacer"></div>
-        <div class="flex flex-middle">
-          {renderSkinTone && this.dir == 'rtl' && this.renderSkinToneButton()}
+      <div class="flex flex-middle">
+        {renderSkinTone && this.dir == 'rtl' && this.renderSkinToneButton()}
 
-          <div class="search relative flex-grow">
-            <input
-              type="search"
-              ref={this.refs.searchInput}
-              placeholder={I18n.search}
-              onClick={this.handleSearchClick}
-              onInput={this.handleSearchInput}
-              onKeyDown={this.handleSearchKeyDown}
-              autoComplete="off"
-            ></input>
-            <span class="icon loupe flex">{Icons.search.loupe}</span>
-            {this.state.searchResults && (
-              <button
-                title="Clear"
-                aria-label="Clear"
-                type="button"
-                class="icon delete flex"
-                onClick={this.clearSearch}
-                onMouseDown={this.preventDefault}
-              >
-                {Icons.search.delete}
-              </button>
-            )}
-          </div>
-
-          {renderSkinTone && this.dir == 'ltr' && this.renderSkinToneButton()}
+        <div class="search relative flex-grow">
+          <input
+            type="search"
+            ref={this.refs.searchInput}
+            placeholder={I18n.search}
+            onClick={this.handleSearchClick}
+            onInput={this.handleSearchInput}
+            onKeyDown={this.handleSearchKeyDown}
+            autoComplete="off"
+          ></input>
+          {!this.state.searchResults && <span class="icon loupe flex">{Icons.search.loupe}</span>}
+          {this.state.searchResults && (
+            <button
+              title="Clear"
+              aria-label="Clear"
+              type="button"
+              class="icon delete flex"
+              onClick={this.clearSearch}
+              onMouseDown={this.preventDefault}
+            >
+              {Icons.search.delete}
+            </button>
+          )}
         </div>
+
+        {renderSkinTone && this.dir == 'ltr' && this.renderSkinToneButton()}
       </div>
     )
   }
@@ -824,7 +821,7 @@ export default class Picker extends Component {
 
     return (
       <div class="category" ref={this.refs.search}>
-        <div class={`sticky padding-small align-${this.dir[0]}`}>
+        <div class={`padding-small align-${this.dir[0]} category-name`}>
           {I18n.categories.search}
         </div>
         <div>
@@ -874,7 +871,7 @@ export default class Picker extends Component {
               class="category"
               ref={root}
             >
-              <div class={`sticky padding-small align-${this.dir[0]}`}>
+              <div class={`padding-small align-${this.dir[0]} category-name`}>
                 {category.name || I18n.categories[category.id]}
               </div>
               <div
@@ -1060,10 +1057,10 @@ export default class Picker extends Component {
         data-menu={this.state.showSkins ? '' : undefined}
       >
         {this.props.previewPosition == 'top' && this.renderPreview()}
-        {this.props.navPosition == 'top' && this.renderNav()}
         {this.props.searchPosition == 'sticky' && (
-          <div class="padding-lr">{this.renderSearch()}</div>
+          <div class="padding-lr padding-lr-large">{this.renderSearch()}</div>
         )}
+        {this.props.navPosition == 'top' && this.renderNav()}
 
         <div ref={this.refs.scroll} class="scroll flex-grow padding-lr">
           <div
