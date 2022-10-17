@@ -1,3 +1,11 @@
+packages/emoji-mart만 수정했음.
+
+수정후 배포방법
+```
+npm login --scope=@cafenono --registry=https://npm.pkg.github.com
+npm publish
+```
+
 <div align="center">
   <br><b>Emoji Mart</b> is a customizable<br>emoji picker HTML component for the web
   <br><a href="https://missiveapp.com/open/emoji-mart">Demo</a>
