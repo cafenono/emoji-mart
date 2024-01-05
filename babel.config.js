@@ -1,7 +1,6 @@
 const { devDependencies } = require('./package.json')
 
 module.exports = {
-  presets: ['@babel/preset-react'],
   plugins: [
     '@babel/plugin-transform-runtime',
     [
@@ -10,6 +9,17 @@ module.exports = {
         'process.env.NODE_ENV': 'production',
         EMOJI_DATASOURCE_VERSION: devDependencies['emoji-datasource'],
       },
+    ],
+    [
+      'module-resolver',
+      {
+        alias: {
+          "react": "preact/compat",
+          "react-dom/test-utils": "preact/test-utils",
+          "react-dom": "preact/compat",
+          "react/jsx-runtime": "preact/jsx-runtime"
+        }
+      }
     ],
   ],
   env: {

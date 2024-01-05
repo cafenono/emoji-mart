@@ -2,8 +2,10 @@ packages/emoji-mart만 수정했음.
 
 수정후 배포방법
 ```
-npm login --scope=@cafenono --registry=https://npm.pkg.github.com
-npm publish
+project-root$ npm login --scope=@cafenono --registry=https://npm.pkg.github.com
+
+project-root$ cd packages/emoji-mart
+project-root/packages/emoji-mart$ npm publish
 ```
 
 <div align="center">
