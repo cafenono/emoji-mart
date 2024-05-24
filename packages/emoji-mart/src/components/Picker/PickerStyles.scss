@@ -24,7 +24,7 @@
   --em-rgb-input: var(--rgb-input, 255, 255, 255);
   --em-color-border: var(--color-border, rgba(0, 0, 0, .05));
   --em-color-border-over: var(--color-border-over, rgba(0, 0, 0, .1));
-  --em-bg-color: #ffffff;
+  --em-bg-color: var(--color-sf_bg01,#ffffff);
   --em-category-name: #62676e;
   --em-primary-color: #5867ff;
   --em-input: #eeeeef;
@@ -37,7 +37,7 @@
   --em-rgb-input: var(--rgb-input, 0, 0, 0);
   --em-color-border: var(--color-border, rgba(255, 255, 255, .1));
   --em-color-border-over: var(--color-border-over, rgba(255, 255, 255, .2));
-  --em-bg-color: #1a1b20;
+  --em-bg-color: var(--color-sf_bg01, #1a1b20);
   --em-category-name: #888c94;
   --em-primary-color: #5867ff;
   --em-input: #2A2E38;
